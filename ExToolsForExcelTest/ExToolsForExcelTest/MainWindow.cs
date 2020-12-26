@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,15 +14,14 @@ namespace ExToolsForExcelTest
 {
     public partial class MainWindow : Form
     {
-        ExcelController excelController;
-        HotKey writeTestOkHotKey;
-        HotKey writeTestNgHotKey;
-        HotKey skipRowHotKey;
-        HotKey writeTestOkWithEvidenceHotKey;
-        HotKey writeTestNgWithEvidenceHotKey;
+        public ExcelController excelController { get; private set; }
+        public HotKeyController hotKeyController { get; private set; }
+
+        public static MainWindow Instance { get; private set; }
 
         public MainWindow()
         {
+            Instance = this;
             InitializeComponent();
             this.ShowInTaskbar = false;
             exitStripMenuItem.Click += ExitMenuItem_Click;
@@ -30,7 +30,8 @@ namespace ExToolsForExcelTest
         private void MainWindow_Load(object sender, EventArgs e)
         {
             excelController=new ExcelController();
-            setHotKeys();
+            hotKeyController = new HotKeyController();
+            initializeSettings();
         }
 
         private void ExitMenuItem_Click(object sender, EventArgs e)
@@ -42,6 +43,7 @@ namespace ExToolsForExcelTest
         {
             e.Cancel = true;
             this.Visible = false;
+            initializeSettings();
         }
 
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
@@ -61,50 +63,81 @@ namespace ExToolsForExcelTest
             }
         }
 
-        void setHotKeys()
-        {
-            writeTestOkHotKey = new HotKey(MOD_KEY.ALT, Keys.D9);
-            writeTestOkHotKey.HotKeyPush += new EventHandler((obj, args) => { excelController.WriteTestResult(true); });
-            writeTestNgHotKey = new HotKey(MOD_KEY.ALT|MOD_KEY.CONTROL, Keys.D9);
-            writeTestNgHotKey.HotKeyPush += new EventHandler((obj, args) => { excelController.WriteTestResult(false); });
-            skipRowHotKey = new HotKey(MOD_KEY.ALT, Keys.D0);
-            skipRowHotKey.HotKeyPush += new EventHandler((obj, args) => { excelController.SkipRow(); });
-            writeTestOkWithEvidenceHotKey = new HotKey(MOD_KEY.ALT, Keys.D8);
-            writeTestOkWithEvidenceHotKey.HotKeyPush += new EventHandler((obj, args) => { excelController.WriteTestResultWithEvidence(true); });
-            writeTestNgWithEvidenceHotKey = new HotKey(MOD_KEY.ALT | MOD_KEY.CONTROL, Keys.D8);
-            writeTestNgWithEvidenceHotKey.HotKeyPush += new EventHandler((obj, args) => { excelController.WriteTestResultWithEvidence(false); });
-        }
-
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
-            clearHotKeys();
+            hotKeyController.ClearHotKeys();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        
+
+        void initializeSettings()
         {
-            excelController.WriteTestResult(true);
+            workbookNameTextBox.Text = excelController.WorkbookKey;
+            testSheetNameTextBox.Text = excelController.TestSheetKey;
+            evidenceSheetTextBox.Text = excelController.EvidenceSheetKey;
+            passedTextBox.Text = excelController.PassedText;
+            ngTextBox.Text = excelController.FailureText;
+            numberColumnNameTextBox.Text = excelController.TestNumberColumn;
+            descriptionColumnNameTextBox.Text = excelController.TestDescriptionColumn;
+            resultColumnNameTextBox.Text = excelController.TestResultColumn;
+            marginTopTextBox.Text = excelController.MarginTop.ToString();
+            imageMagnificationTextBox.Text = excelController.ImageMagnification.ToString();
         }
 
-        void clearHotKeys()
+        private void saveButton_Click(object sender, EventArgs e)
         {
-            if(writeTestOkHotKey!=null)
-                writeTestOkHotKey.Dispose();
-            if(writeTestNgHotKey!=null)
-                writeTestNgHotKey.Dispose();
-            if(skipRowHotKey!=null)
-                skipRowHotKey.Dispose();
-            if (writeTestOkWithEvidenceHotKey != null)
-                writeTestOkWithEvidenceHotKey.Dispose();
-            if (writeTestNgWithEvidenceHotKey != null)
+            if (!string.IsNullOrEmpty(workbookNameTextBox.Text))
             {
-                writeTestNgWithEvidenceHotKey.Dispose();
+                excelController.WorkbookKey = workbookNameTextBox.Text;
             }
+            if (!string.IsNullOrEmpty(testSheetNameTextBox.Text))
+            {
+                excelController.TestSheetKey = testSheetNameTextBox.Text;
+            }
+            if (!string.IsNullOrEmpty(evidenceSheetTextBox.Text))
+            {
+                excelController.EvidenceSheetKey = evidenceSheetTextBox.Text;
+            }
+            excelController.PassedText = passedTextBox.Text;
+            excelController.FailureText = ngTextBox.Text;
+            if (Regex.IsMatch(numberColumnNameTextBox.Text, @"^[a-zA-Z]+$"))
+            {
+                excelController.TestNumberColumn = numberColumnNameTextBox.Text;
+            }
+            if (Regex.IsMatch(descriptionColumnNameTextBox.Text, @"^[a-zA-Z]+$"))
+            {
+                excelController.TestDescriptionColumn = descriptionColumnNameTextBox.Text;
+            }
+            if (Regex.IsMatch(resultColumnNameTextBox.Text, @"^[a-zA-Z]+$"))
+            {
+                excelController.TestResultColumn = resultColumnNameTextBox.Text;
+            }
+            int marginTop;
+            if (int.TryParse(marginTopTextBox.Text, out marginTop))
+            {
+                excelController.MarginTop = marginTop;
+            }
+            decimal imageMagnification;
+            if(decimal.TryParse(imageMagnificationTextBox.Text,out imageMagnification))
+            {
+                excelController.ImageMagnification = imageMagnification;
+            }
+
+            excelController.SaveSettings();
+            initializeSettings();
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        private void initializeButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(e.KeyCode);
+            initializeSettings();
         }
+
+        private void testPassedShortcutTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        
     }
 }

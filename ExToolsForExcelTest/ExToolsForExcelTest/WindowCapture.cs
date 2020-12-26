@@ -30,11 +30,13 @@ namespace ExToolsForExcelTest
         }
         public static bool SaveActiveWindowCapture(string path)
         {
-            Bitmap bitmap = CaptureActiveWindow();
-            bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
+            return SaveActiveWindowCapture(CaptureActiveWindow(), path);
+        }
+        public static bool SaveActiveWindowCapture(Bitmap bmp,string path)
+        {
+            bmp.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
             return true;
         }
-
 
 
         [DllImport("user32.Dll")]

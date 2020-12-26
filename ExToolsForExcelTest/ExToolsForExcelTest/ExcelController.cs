@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Range=Microsoft.Office.Interop.Excel.Range;
@@ -29,11 +33,13 @@ namespace ExToolsForExcelTest
         public string TestResultColumn = "AF";
 
         public int MarginTop = 2;
+        public decimal ImageMagnification = 1;
 
         const string CaptureImg = "Capture.bmp";
 
         public ExcelController()
         {
+            LoadSettings();
             setExcelObjects();
             var processes = Process.GetProcesses();
             foreach (var process in processes)
@@ -93,9 +99,16 @@ namespace ExToolsForExcelTest
             EvidenceSheet.Range["A" + (testNumber * 2 - 1)].Value = testNumber;
             EvidenceSheet.Range["B" + (testNumber * 2 - 1)].Value = TestSheet.Range[TestDescriptionColumn + row + ":" + TestDescriptionColumn.NextColumnName() + row].Value;
 
-            WindowCapture.SaveActiveWindowCapture(CaptureImg);
+            Bitmap bitmap = WindowCapture.CaptureActiveWindow();
+            WindowCapture.SaveActiveWindowCapture(bitmap,CaptureImg);
             Range captureRange = EvidenceSheet.Range["B" + (testNumber * 2)];
-            var shape = EvidenceSheet.Shapes.AddPicture(System.IO.Directory.GetCurrentDirectory()+@"\"+CaptureImg, Microsoft.Office.Core.MsoTriState.msoCTrue, Microsoft.Office.Core.MsoTriState.msoCTrue, captureRange.Left, captureRange.Top, 100, 100);
+            var shape = EvidenceSheet.Shapes.AddPicture(
+                System.IO.Directory.GetCurrentDirectory()+@"\"+CaptureImg, 
+                Microsoft.Office.Core.MsoTriState.msoCTrue, 
+                Microsoft.Office.Core.MsoTriState.msoCTrue, 
+                captureRange.Left, captureRange.Top, 
+                (float)ImageMagnification*bitmap.Width,
+                (float)ImageMagnification*bitmap.Height);
             EvidenceSheet.Rows[testNumber * 2].RowHeight = shape.Height;
         }
         public void SkipRow()
@@ -115,12 +128,49 @@ namespace ExToolsForExcelTest
             TestSheet.Range[TestResultColumn + (row + 1)].Activate();
         }
 
+        public bool SaveSettings()
+        {
+            ExcelControllerSettings settings = new ExcelControllerSettings()
+            {
+                WorkbookKey = this.WorkbookKey,
+                TestSheetKey = this.TestSheetKey,
+                EvidenceSheetKey = this.EvidenceSheetKey,
+                PassedText = this.PassedText,
+                FailureText = this.FailureText,
+                TestNumberColumn = this.TestNumberColumn,
+                TestDescriptionColumn = this.TestDescriptionColumn,
+                TestResultColumn = this.TestResultColumn,
+                MarginTop = this.MarginTop,
+                ImageMagnification = this.ImageMagnification
+            };
+            return settings.Save();
+        }
+        public bool LoadSettings()
+        {
+            ExcelControllerSettings settings = ExcelControllerSettings.Load();
+            WorkbookKey = settings.WorkbookKey;
+            TestSheetKey = settings.TestSheetKey;
+            EvidenceSheetKey = settings.EvidenceSheetKey;
+            PassedText = settings.PassedText;
+            FailureText = settings.FailureText;
+            TestNumberColumn = settings.TestNumberColumn;
+            TestDescriptionColumn = settings.TestDescriptionColumn;
+            TestResultColumn = settings.TestResultColumn;
+            MarginTop = settings.MarginTop;
+            ImageMagnification = settings.ImageMagnification;
+            return true;
+        }
+
         void setExcelObjects()
         {
             clearExcelObjects();
-            object obj = Marshal.GetActiveObject("Excel.Application");
-            if (obj == null) return;
-            Excel = (Microsoft.Office.Interop.Excel.Application)obj;
+            try
+            {
+                object obj = Marshal.GetActiveObject("Excel.Application");
+                if (obj == null) return;
+                Excel = (Microsoft.Office.Interop.Excel.Application)obj;
+            }
+            catch { return; }
             foreach (Microsoft.Office.Interop.Excel.Workbook wb in Excel.Workbooks)
             {
                 if (wb.Name.Contains(WorkbookKey))
@@ -186,7 +236,63 @@ namespace ExToolsForExcelTest
 
 
 
-        
+        public static int ToColumnNumber(string source)
+        {
+            return source.ToColumnNumber();
+        }
+        public static string ToColumnName(int source)
+        {
+            return source.ToColumnName();
+        }
+    }
+
+    class ExcelControllerSettings
+    {
+        public string WorkbookKey { get; set; }
+        public string TestSheetKey { get; set; }
+        public string EvidenceSheetKey { get; set; }
+
+        public string PassedText { get; set; }
+        public string FailureText { get; set; }
+
+        public string TestNumberColumn { get; set; }
+        public string TestDescriptionColumn { get; set; }
+        public string TestResultColumn { get; set; }
+
+        public int MarginTop { get; set; }
+        public decimal ImageMagnification { get; set; }
+
+        public ExcelControllerSettings() { }
+
+        public bool Save()
+        {
+            string jsonString = JsonSerializer.Serialize(this);
+            try
+            {
+                File.WriteAllText(ConfigurationManager.AppSettings[ConfigKeys.ExcelSettingFilePath], jsonString);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+        public static ExcelControllerSettings Load(string path)
+        {
+            try
+            {
+                string jsonString=File.ReadAllText(path);
+                return JsonSerializer.Deserialize<ExcelControllerSettings>(jsonString);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public static ExcelControllerSettings Load()
+        {
+            return Load(ConfigurationManager.AppSettings[ConfigKeys.ExcelSettingFilePath]);
+        }
     }
 
     static class ExcelControllerExtend
