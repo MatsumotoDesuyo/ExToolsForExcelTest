@@ -68,16 +68,16 @@ namespace ExToolsForExcelTest
             this.label1 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label18 = new System.Windows.Forms.Label();
-            this.testPassedShortcutTextBox = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.testPassedShortcutTextBox = new System.Windows.Forms.TextBox();
             this.contextMenuStrip.SuspendLayout();
             this.excelSettingsLabelLayoutPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -112,7 +112,7 @@ namespace ExToolsForExcelTest
             this.saveButton.Location = new System.Drawing.Point(663, 787);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(151, 59);
-            this.saveButton.TabIndex = 15;
+            this.saveButton.TabIndex = 14;
             this.saveButton.Text = "適用(&O)";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
@@ -123,7 +123,7 @@ namespace ExToolsForExcelTest
             this.initializeButton.Location = new System.Drawing.Point(831, 787);
             this.initializeButton.Name = "initializeButton";
             this.initializeButton.Size = new System.Drawing.Size(151, 59);
-            this.initializeButton.TabIndex = 14;
+            this.initializeButton.TabIndex = 15;
             this.initializeButton.Text = "元に戻す(&C)";
             this.initializeButton.UseVisualStyleBackColor = true;
             this.initializeButton.Click += new System.EventHandler(this.initializeButton_Click);
@@ -471,63 +471,25 @@ namespace ExToolsForExcelTest
             this.panel1.Size = new System.Drawing.Size(955, 209);
             this.panel1.TabIndex = 48;
             // 
-            // label18
+            // label22
             // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(143, 13);
-            this.label18.Margin = new System.Windows.Forms.Padding(0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(111, 24);
-            this.label18.TabIndex = 37;
-            this.label18.Text = "テスト通過";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(116, 161);
+            this.label22.Margin = new System.Windows.Forms.Padding(0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(133, 24);
+            this.label22.TabIndex = 45;
+            this.label22.Text = "テストスキップ";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // testPassedShortcutTextBox
+            // textBox5
             // 
-            this.testPassedShortcutTextBox.Location = new System.Drawing.Point(257, 10);
-            this.testPassedShortcutTextBox.Name = "testPassedShortcutTextBox";
-            this.testPassedShortcutTextBox.Size = new System.Drawing.Size(482, 31);
-            this.testPassedShortcutTextBox.TabIndex = 36;
-            this.testPassedShortcutTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.testPassedShortcutTextBox_KeyDown);
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(143, 50);
-            this.label19.Margin = new System.Windows.Forms.Padding(0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(111, 24);
-            this.label19.TabIndex = 39;
-            this.label19.Text = "テスト不可";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(257, 47);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(482, 31);
-            this.textBox2.TabIndex = 38;
-            // 
-            // label20
-            // 
-            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(14, 87);
-            this.label20.Margin = new System.Windows.Forms.Padding(0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(240, 24);
-            this.label20.TabIndex = 41;
-            this.label20.Text = "テスト通過(エビデンス有)";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(257, 84);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(482, 31);
-            this.textBox3.TabIndex = 40;
+            this.textBox5.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.textBox5.Location = new System.Drawing.Point(257, 158);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(482, 31);
+            this.textBox5.TabIndex = 44;
             // 
             // label21
             // 
@@ -543,29 +505,74 @@ namespace ExToolsForExcelTest
             // 
             // textBox4
             // 
+            this.textBox4.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.textBox4.Location = new System.Drawing.Point(257, 121);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(482, 31);
             this.textBox4.TabIndex = 42;
             // 
-            // label22
+            // label20
             // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(116, 161);
-            this.label22.Margin = new System.Windows.Forms.Padding(0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(133, 24);
-            this.label22.TabIndex = 45;
-            this.label22.Text = "テストスキップ";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(14, 87);
+            this.label20.Margin = new System.Windows.Forms.Padding(0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(240, 24);
+            this.label20.TabIndex = 41;
+            this.label20.Text = "テスト通過(エビデンス有)";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // textBox5
+            // textBox3
             // 
-            this.textBox5.Location = new System.Drawing.Point(257, 158);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(482, 31);
-            this.textBox5.TabIndex = 44;
+            this.textBox3.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.textBox3.Location = new System.Drawing.Point(257, 84);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(482, 31);
+            this.textBox3.TabIndex = 40;
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(143, 50);
+            this.label19.Margin = new System.Windows.Forms.Padding(0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(111, 24);
+            this.label19.TabIndex = 39;
+            this.label19.Text = "テスト不可";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // textBox2
+            // 
+            this.textBox2.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.textBox2.Location = new System.Drawing.Point(257, 47);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(482, 31);
+            this.textBox2.TabIndex = 38;
+            // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(143, 13);
+            this.label18.Margin = new System.Windows.Forms.Padding(0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(111, 24);
+            this.label18.TabIndex = 37;
+            this.label18.Text = "テスト通過";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // testPassedShortcutTextBox
+            // 
+            this.testPassedShortcutTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.testPassedShortcutTextBox.Location = new System.Drawing.Point(257, 10);
+            this.testPassedShortcutTextBox.Name = "testPassedShortcutTextBox";
+            this.testPassedShortcutTextBox.Size = new System.Drawing.Size(482, 31);
+            this.testPassedShortcutTextBox.TabIndex = 36;
+            this.testPassedShortcutTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.testPassedShortcutTextBox_KeyDown);
+            this.testPassedShortcutTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.testPassedShortcutTextBox_KeyPress);
+            this.testPassedShortcutTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.testPassedShortcutTextBox_KeyUp);
             // 
             // MainWindow
             // 

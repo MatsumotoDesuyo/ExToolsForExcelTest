@@ -135,9 +135,25 @@ namespace ExToolsForExcelTest
 
         private void testPassedShortcutTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            
+            e.Handled = true;
+            testPassedShortcutKey.SetKey(e.KeyCode);
+            testPassedShortcutTextBox.Text = testPassedShortcutKey.ToString();
         }
 
-        
+        ShortcutKey testPassedShortcutKey = new ShortcutKey();
+
+        private void testPassedShortcutTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void testPassedShortcutTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+            if (testPassedShortcutKey.Key == Keys.None)
+            {
+                testPassedShortcutTextBox.Text = "";
+            }
+        }
     }
 }

@@ -109,23 +109,23 @@ namespace ExToolsForExcelTest
         public bool Shift;
         public Keys Key = Keys.None;
 
-        public void KeyDown(Keys key)
+        public void SetKey(Keys keys)
         {
-            if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
-            {
-                Ctrl = true;
+            Ctrl = (Control.ModifierKeys & Keys.Control) == Keys.Control;
+            Alt=(Control.ModifierKeys& Keys.Alt) == Keys.Alt;
+            Shift = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+
+            if (!Ctrl && !Alt && !Shift) {
+                Key = Keys.None;
+                return; 
             }
-            if((Control.ModifierKeys& Keys.Alt) == Keys.Alt)
+            if (keys!=Keys.ShiftKey&&keys!=Keys.ControlKey&&keys!=Keys.Menu)
             {
-                Alt = true;
+                Key = keys;
             }
-            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+            else
             {
-                Shift = true;
-            }
-            if ((Control.ModifierKeys & key)==0 )
-            {
-                Key = key;
+                Key = Keys.None;
             }
         }
 
