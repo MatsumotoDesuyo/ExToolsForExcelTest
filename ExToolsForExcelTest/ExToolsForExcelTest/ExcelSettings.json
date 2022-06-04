@@ -1,0 +1,12 @@
+{
+  "WorkbookKey": "ExToolsTest",
+  "TestSheetKey": "Sheet1",
+  "EvidenceSheetKey": "Sheet2",
+  "PassedText": "\u3007",
+  "FailureText": "\u00D7",
+  "TestNumberColumn": "A",
+  "TestDescriptionColumn": "M",
+  "TestResultColumn": "AF",
+  "MarginTop": 2,
+  "ImageMagnification": 0.25
+}
