@@ -22,15 +22,15 @@ namespace ExToolsForExcelTest
         public Microsoft.Office.Interop.Excel.Worksheet EvidenceSheet = null;
 
         public string WorkbookKey = "動作検証仕様書";
-        public string TestSheetKey = "動作検証仕様書";
-        public string EvidenceSheetKey = "エビデンス";
+        public string TestSheetKey = "テスト一覧";
+        public string EvidenceSheetKey = "エビデンスシート";
 
         public string PassedText = "〇";
         public string FailureText = "×";
 
         public string TestNumberColumn = "A";
-        public string TestDescriptionColumn = "M";
-        public string TestResultColumn = "AF";
+        public string TestDescriptionColumn = "B";
+        public string TestResultColumn = "C";
 
         public int MarginTop = 2;
         public decimal ImageMagnification = 1;
