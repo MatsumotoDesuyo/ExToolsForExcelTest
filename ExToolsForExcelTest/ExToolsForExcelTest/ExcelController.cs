@@ -49,6 +49,10 @@ namespace ExToolsForExcelTest
             }
         }
 
+        /// <summary>
+        /// テスト結果をExcelに記載する
+        /// </summary>
+        /// <param name="correct"></param>
         public void WriteTestResult(bool correct)
         {
             if (Excel == null || Workbook == null || TestSheet == null)
@@ -68,6 +72,11 @@ namespace ExToolsForExcelTest
             Excel.Goto(TestSheet.Range["A" + (row + 1 - MarginTop)], true);
             TestSheet.Range[TestResultColumn + (row + 1)].Activate();
         }
+
+        /// <summary>
+        /// テストのエビデンスをExcelに記載する
+        /// </summary>
+        /// <param name="correct"></param>
         public void WriteTestResultWithEvidence(bool correct)
         {
             if (Excel == null || Workbook == null || TestSheet == null||EvidenceSheet==null)
@@ -111,6 +120,8 @@ namespace ExToolsForExcelTest
                 (float)ImageMagnification*bitmap.Height);
             EvidenceSheet.Rows[testNumber * 2].RowHeight = shape.Height;
         }
+
+        //一行スキップする
         public void SkipRow()
         {
             if (Excel == null || Workbook == null || TestSheet == null)
@@ -128,6 +139,10 @@ namespace ExToolsForExcelTest
             TestSheet.Range[TestResultColumn + (row + 1)].Activate();
         }
 
+        /// <summary>
+        /// Excelの設定をJSONに保存する
+        /// </summary>
+        /// <returns></returns>
         public bool SaveSettings()
         {
             ExcelControllerSettings settings = new ExcelControllerSettings()
@@ -145,6 +160,11 @@ namespace ExToolsForExcelTest
             };
             return settings.Save();
         }
+
+        /// <summary>
+        /// JSONから設定情報を読み込む
+        /// </summary>
+        /// <returns></returns>
         public bool LoadSettings()
         {
             ExcelControllerSettings settings = ExcelControllerSettings.Load();
@@ -161,6 +181,9 @@ namespace ExToolsForExcelTest
             return true;
         }
 
+        /// <summary>
+        /// ExcelのCOMオブジェクトを取得
+        /// </summary>
         void setExcelObjects()
         {
             clearExcelObjects();
@@ -205,6 +228,10 @@ namespace ExToolsForExcelTest
                 EvidenceSheet.BeforeDelete += () => clearExcelObjects();
             }
         }
+
+        /// <summary>
+        /// 保持しているExcelのCOMオブジェクトをリリース
+        /// </summary>
         void clearExcelObjects()
         {
             if (Excel != null)
@@ -233,19 +260,11 @@ namespace ExToolsForExcelTest
         {
             clearExcelObjects();
         }
-
-
-
-        public static int ToColumnNumber(string source)
-        {
-            return source.ToColumnNumber();
-        }
-        public static string ToColumnName(int source)
-        {
-            return source.ToColumnName();
-        }
     }
 
+    /// <summary>
+    /// Excel操作に関する設定の実体を持つクラス
+    /// </summary>
     class ExcelControllerSettings
     {
         public string WorkbookKey { get; set; }
@@ -264,6 +283,10 @@ namespace ExToolsForExcelTest
 
         public ExcelControllerSettings() { }
 
+        /// <summary>
+        /// JSONに保存する
+        /// </summary>
+        /// <returns></returns>
         public bool Save()
         {
             string jsonString = JsonSerializer.Serialize(this);
@@ -277,6 +300,11 @@ namespace ExToolsForExcelTest
             }
             return true;
         }
+        /// <summary>
+        /// JSONを読み込む
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static ExcelControllerSettings Load(string path)
         {
             try
@@ -289,6 +317,10 @@ namespace ExToolsForExcelTest
                 return null;
             }
         }
+        /// <summary>
+        /// JSONを読み込む
+        /// </summary>
+        /// <returns></returns>
         public static ExcelControllerSettings Load()
         {
             return Load(ConfigurationManager.AppSettings[ConfigKeys.ExcelSettingFilePath]);

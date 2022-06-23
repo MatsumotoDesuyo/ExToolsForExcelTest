@@ -14,9 +14,17 @@ namespace ExToolsForExcelTest
 {
     public partial class MainWindow : Form
     {
+        /// <summary>
+        /// Excelを操作するやつ
+        /// </summary>
         public ExcelController excelController { get; private set; }
+        /// <summary>
+        /// ホットキーの設定をするやつ
+        /// </summary>
         public HotKeyController hotKeyController { get; private set; }
-
+        /// <summary>
+        /// シングルトン
+        /// </summary>
         public static MainWindow Instance { get; private set; }
 
         public MainWindow()
