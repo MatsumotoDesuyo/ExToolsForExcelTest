@@ -67,7 +67,7 @@ namespace ExToolsForExcelTest
             Range activeCell = Excel.ActiveCell;
             int row = activeCell.Row;
             TestSheet.Range[TestResultColumn + row + ":" + 
-                (TestResultColumn.ToColumnNumber()+1).ToColumnName()+ row].Value = 
+                TestResultColumn+ row].Value = 
                 correct?PassedText:FailureText;
             Excel.Goto(TestSheet.Range["A" + (row + 1 - MarginTop)], true);
             TestSheet.Range[TestResultColumn + (row + 1)].Activate();
